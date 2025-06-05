@@ -24,8 +24,8 @@ export const Colors = {
     coolB400: '#B6F8EFFF',
     coolB300: '#DAFFFAFF',
 
-    corkboard: '',
-    darkWood: '',
-    metal: '#878D8DFF',
-    stars: '',
+    corkboard: '#836144FF',
+    darkWood: '#34383a',
+    metal: '#878f92',
+    stars: '#04090e',
 };
