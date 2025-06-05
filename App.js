@@ -15,6 +15,8 @@ import { Colors } from './constants/Colors';
 import FollowedArtists from './screens/content/artist/FollowedArtists';
 import SearchArtists from './screens/content/artist/SearchArtists';
 import IconButton from './components/ui/IconButton';
+import Account from './screens/content/Account';
+import ImageButton from './components/ui/imgButton';
 
 function Content(){
   const Stack = createNativeStackNavigator();
@@ -32,7 +34,7 @@ function Content(){
           title: 'Followed Artists',
           headerLeft: ({tintColor})=>{
             return(
-              <IconButton icon='person' onPress={()=>navigation.navigate('Account')} color={tintColor} size={24} />
+              <ImageButton source={require('./images/defaultPFP.png')} onPress={()=>navigation.navigate('Account')} color={tintColor} size={32} /> //todo make this the pfp
             );
           },
           headerRight: ({tintColor})=>{
@@ -48,7 +50,17 @@ function Content(){
         options={{
           title: "Search Artists",
         }}
-        />
+      />
+      <Stack.Screen 
+        name='Account'
+        component={Account}
+        options={{
+          title: "Account Settings",
+          contentStyle:{
+            backgroundColor: Colors.metal,
+          }
+        }}
+      />
     </Stack.Navigator>
   );
 }

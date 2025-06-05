@@ -1,14 +1,14 @@
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+
+import BackgroundTexture from "../../../components/ui/BackgroundTexture";
 
 function FollowedArtists() {
     return(
-        <ImageBackground
-        source={require('../../../images/background/corkboard.jpg')}
-        style={styles.background}>
+        <BackgroundTexture texture='corkboard'>
             <View>
 
             </View>
-        </ImageBackground>
+        </BackgroundTexture>
     );
 }
 

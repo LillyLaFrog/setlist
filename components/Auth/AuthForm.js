@@ -1,10 +1,11 @@
-import { StyleSheet, Text, TextInput, View, ImageBackground, Alert } from "react-native";
+import { StyleSheet, Text, TextInput, View, Alert } from "react-native";
 import TransparentButton from "../ui/TransparentButton";
 import GradientButton from "../ui/GradientButton";
 import { Colors } from "../../constants/Colors";
 import { Dimensions } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import BackgroundTexture from "../ui/BackgroundTexture";
 
 const screenHeight = Dimensions.get('screen').height
 
@@ -36,9 +37,7 @@ function AuthForm({onSubmit, isLogin}) {
     }
 
     return(
-        <ImageBackground
-        source={require('../../images/background/metal.jpg')}
-        style={styles.background}>
+        <BackgroundTexture texture='metal' keepHeight={true}>
             <View style={styles.container}>
                 <Text style={styles.title}>{isLogin?'Login to Setlist':'Make a New Account'}</Text>
                 <View style={styles.inputContainer}>
@@ -50,7 +49,7 @@ function AuthForm({onSubmit, isLogin}) {
                 <GradientButton startColor={Colors.warmA300} endColor={Colors.warmB500} onPress={submitHandler}>{isLogin?'Login':'Signup'}</GradientButton>
                 <TransparentButton onPress={switchModeHandler} color={Colors.coolB300}>{isLogin?'No Account? Sign Up!':'Log in instead'}</TransparentButton>
             </View>
-        </ImageBackground>
+        </BackgroundTexture>
     );
 }
 

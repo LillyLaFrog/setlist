@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-function TransparentButton({onPress, children, color}) {
+function Button({onPress, children, color}) {
     return(
         <Pressable style={({pressed})=>[styles.container, {backgroundColor: color}, pressed && styles.pressed]} onPress={onPress}>
             <Text style={styles.text}>{children}</Text>
@@ -8,7 +8,7 @@ function TransparentButton({onPress, children, color}) {
     );
 }
 
-export default TransparentButton;
+export default Button;
 
 const styles = StyleSheet.create({
     container:{
