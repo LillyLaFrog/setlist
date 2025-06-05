@@ -1,0 +1,6 @@
+//For people from github: copy this file, rename it to ApiKeys.js and put api keys in the spots below
+
+export const TICKETMASTER_API_KEY="API_KEY"
+export const GOOGLE_MAPS_API_KEY="API_KEY"
+export const DISCOGS_API_KEY="API_KEY"
+export const FIREBASE_API_KEY="API_KEY"
