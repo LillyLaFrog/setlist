@@ -1,9 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as SplashScreen from 'expo-splash-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AuthContextProvider, { authContext } from './store/auth-context';
 
@@ -73,10 +75,36 @@ function Auth(){
 }
 
 function Root(){
-  authCtx = useContext(authContext);
-    return(
-      (authCtx.isLoggedIn?<Content/>:<Auth />)
-    );
+
+  SplashScreen.preventAutoHideAsync();
+
+  const [isTryingLogin, setIsTryingLogin] = useState(true);
+  const authCtx = useContext(authContext);
+
+  useEffect(()=>{
+    async function fetchToken() {
+      const storedToken = await AsyncStorage.getItem('token');
+      if (storedToken) {
+        authCtx.auth(storedToken);
+      }
+      setIsTryingLogin(false);
+    }
+
+    fetchToken();
+  },[]);
+
+  useEffect(()=>{
+    if(!isTryingLogin){
+      SplashScreen.hideAsync();
+    }
+  },[isTryingLogin])
+
+  if(isTryingLogin){
+    return null;
+  }
+  return(
+    (authCtx.isLoggedIn?<Content/>:<Auth />)
+  );
 }
 
 export default function App() {
