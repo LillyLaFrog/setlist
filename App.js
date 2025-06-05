@@ -13,8 +13,23 @@ import SignupScreen from './screens/login/SignupScreen';
 import { Colors } from './constants/Colors';
 
 function Content(){
+  const Stack = createNativeStackNavigator();
   return(
-    <Text>App goes here</Text>
+    <Stack.Navigator screenOptions={{
+      contentStyle:{
+        backgroundColor: Colors.corkboard,
+      },
+      headerShown: false
+    }}>
+      <Stack.Screen 
+        name='Login'
+        component={LoginScreen}
+      />
+      <Stack.Screen 
+        name='Signup'
+        component={SignupScreen}
+        />
+    </Stack.Navigator>
   );
 }
 
