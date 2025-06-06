@@ -18,6 +18,7 @@ function SearchArtists() {
     const [artists, setArtists] = useState();
 
     function searchHandler(){
+        //todo make this actually set artists as an array of fetched artists
         const imageURI = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeu-4mZFfjrNIr9K05_D3AgfZeem9HFMf3u_QLYnxTSqrbO30lb57h02AJsDtt9NHrDrA3-Z8gvtltAvvejodxdA'
         setArtists([new Artist(search, imageURI, 1)]);
     }
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         flexDirection: 'row',
         justifyContent:'space-between',
+        alignItems: 'center',
         marginHorizontal: '32',
         marginVertical: 16,
         overflow: 'hidden',
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
     },
     searchInput:{
         flex:1,
+        height: 40,
     },
     searchGradient:{
         position: 'absolute',
