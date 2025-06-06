@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import BackgroundTexture from "../../../components/ui/BackgroundTexture";
-import ArtistCard from "../../../components/cards/ArtistCard";
+import ArtistCard from "../../../components/ui/cards/ArtistCard";
 import { Artist } from "../../../models/Artist";
 
 function FollowedArtists() {

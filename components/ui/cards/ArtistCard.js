@@ -1,5 +1,4 @@
 import { View, Image, Text, StyleSheet, Pressable } from "react-native";
-import { Artist } from "../../models/Artist";
 import { useNavigation } from "@react-navigation/native";
 
 function ArtistCard({artist}){
@@ -11,7 +10,7 @@ function ArtistCard({artist}){
     }
 
     return(
-        <Pressable style={styles.card} onPress={detailsNavigator.bind(this, artist.artistId)}>
+        <Pressable style={({pressed})=>[styles.card, pressed && styles.pressed]} onPress={detailsNavigator.bind(this, artist.artistId)}>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{uri: artist.coverImageUri, width:160}} />
             </View>
@@ -41,5 +40,8 @@ const styles = StyleSheet.create({
     text:{
         flex:1,
         fontSize:16,
+    },
+    pressed:{
+        opacity: .7,
     }
 });
