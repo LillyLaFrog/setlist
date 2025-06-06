@@ -6,7 +6,7 @@ function ArtistCard({artist}){
     const navigation = useNavigation();
 
     function detailsNavigator(artistId){
-        navigation.navigate('ArtistDetails', {artistId: artistId})
+        navigation.navigate('ArtistDetails', {screen:'ArtistInfo', params:{artistId: artistId}})
     }
 
     return(
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     card:{
         backgroundColor:'white',
         alignItems: 'center',
-        margin:15,
+        margin: 10,
         width: 180,
         height: 216,
     },
