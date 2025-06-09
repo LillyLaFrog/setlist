@@ -17,6 +17,7 @@ import SearchArtists from './screens/content/artist/SearchArtists';
 import IconButton from './components/ui/IconButton';
 import Account from './screens/content/Account';
 import ImageButton from './components/ui/imgButton';
+import ArtistNavigatior from './screens/content/artist/artistDetails/ArtistNavigatior';
 
 function Content(){
   const Stack = createNativeStackNavigator();
@@ -49,6 +50,13 @@ function Content(){
         component={SearchArtists}
         options={{
           title: "Search Artists",
+        }}
+      />
+      <Stack.Screen
+        name='ArtistDetails'
+        component={ArtistNavigatior}
+        options={{
+          title:'Artist Details'
         }}
       />
       <Stack.Screen 

@@ -3,15 +3,14 @@ import { Artist } from "../models/Artist";
 import { DISCOGS_API_KEY, DISCOGS_API_SECRET } from "../constants/ApiKeys";
 
 const apiUrl = 'https://api.discogs.com';
-const apiKeySecret = `&key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET}`;
+const apiKeySecret = `key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET}`;
 const headers = {
     'User-Agent':"setlistApp/1.0"
 };
 
 export async function fetchArtists(searchTerm){
     //fetches and returns an array of artist objects from a search term
-    console.log('start');
-    const url = `${apiUrl}/database/search?q=${encodeURIComponent(searchTerm)}&type=artist&key=bnDkevSKZKNwedhShIKh&secret=TvDAxpyxpouDOkZFvseKGdnFEXZqTHtl`;
+    const url = `${apiUrl}/database/search?q=${encodeURIComponent(searchTerm)}&type=artist&${apiKeySecret}`;
     try{
         const response = await axios.get(url, {headers: headers});
         var artists = [];
@@ -21,7 +20,6 @@ export async function fetchArtists(searchTerm){
             const cover_image = item.cover_image.includes('spacer.gif')?placeholder:item.cover_image;
             artists.push(new Artist(item.title, cover_image, item.id));
         });
-        console.log(artists)
         return artists;
             
     } catch(err){
@@ -31,7 +29,20 @@ export async function fetchArtists(searchTerm){
     
 }
 
-export function fetchAlbums(artist_ID){
+export async function fetchArtistInfo(artistID){
+    //fetches and returns info for a single artist
+        const url = `${apiUrl}/artists/${artistID}?${apiKeySecret}`;
+    try{
+        const response = await axios.get(url, {headers: headers});
+        const artist = new Artist(response.data.name, response.data.images[0].uri, artistID, response.data.profile);
+        return artist;
+            
+    } catch(err){
+        console.log(err);
+    }
+}
+
+export function fetchAlbums(artistID){
     //fetches and returns an array of album objects all albums from a specified artist
 }
 

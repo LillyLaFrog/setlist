@@ -5,12 +5,12 @@ function ArtistCard({artist}){
 
     const navigation = useNavigation();
 
-    function detailsNavigator(artistId){
-        navigation.navigate('ArtistDetails', {screen:'ArtistInfo', params:{artistId: artistId}})
+    function detailsNavigator(artistID){
+        navigation.navigate('ArtistDetails', {artistID: artistID})
     }
 
     return(
-        <Pressable style={({pressed})=>[styles.card, pressed && styles.pressed]} onPress={detailsNavigator.bind(this, artist.artistId)}>
+        <Pressable style={({pressed})=>[styles.card, pressed && styles.pressed]} onPress={detailsNavigator.bind(this, artist.artistID)}>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{uri: artist.coverImageUri, height:160, width:160}} />
             </View>

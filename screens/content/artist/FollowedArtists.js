@@ -11,7 +11,7 @@ function FollowedArtists() {
     return(
         <BackgroundTexture texture='corkboard'>
             <View style={styles.container}>
-                <ListArtists artists={[artist, artist, artist,artist,artist,artist,artist,artist,artist,artist,]} />
+                <ListArtists artists={[artist,]} />
             </View>
         </BackgroundTexture>
     );

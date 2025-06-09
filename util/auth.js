@@ -10,7 +10,6 @@ async function auth(mode, email, password) {
 
         return token;
     } catch (error) {
-
         console.log(error)
         throw error;
     }
