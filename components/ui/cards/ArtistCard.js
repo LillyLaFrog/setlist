@@ -12,7 +12,7 @@ function ArtistCard({artist}){
     return(
         <Pressable style={({pressed})=>[styles.card, pressed && styles.pressed]} onPress={detailsNavigator.bind(this, artist.artistId)}>
             <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri: artist.coverImageUri, width:160}} />
+                <Image style={styles.image} source={{uri: artist.coverImageUri, height:160, width:160}} />
             </View>
            
             <Text style={styles.text}>{artist.artistName}</Text>

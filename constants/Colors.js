@@ -20,9 +20,9 @@ export const Colors = {
 
     coolB700: '#0B67BD',
     coolB600: '#3A99C5',
-    coolB500: '#9fe3dd',
-    coolB400: '#B6F8EF',
-    coolB300: '#DAFFFA',
+    coolB500: '#7ED3CCFF',
+    coolB400: '#A9F6ECFF',
+    coolB300: '#E2FFFBFF',
 
     corkboard:'#836144',
     darkWood: '#34383a',

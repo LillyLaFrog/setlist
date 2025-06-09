@@ -1,11 +1,11 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, StyleSheet, TextInput, View } from "react-native";
 import BackgroundTexture from "../../../components/ui/BackgroundTexture";
 import ListArtists from "../../../components/ui/lists/ListArtists";
-import { Artist } from "../../../models/Artist";
 import IconButton from "../../../components/ui/IconButton";
 import {Colors} from '../../../constants/Colors';
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
+import { fetchArtists } from "../../../util/discogs";
 
 function SearchArtists() {
 
@@ -17,20 +17,24 @@ function SearchArtists() {
 
     const [artists, setArtists] = useState();
 
-    function searchHandler(){
-        //todo make this actually set artists as an array of fetched artists
-        const imageURI = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeu-4mZFfjrNIr9K05_D3AgfZeem9HFMf3u_QLYnxTSqrbO30lb57h02AJsDtt9NHrDrA3-Z8gvtltAvvejodxdA'
-        setArtists([new Artist(search, imageURI, 1)]);
+    async function searchHandler(){
+        Keyboard.dismiss();
+        const artists = await fetchArtists(search);
+        setArtists(artists);
     }
     
 
     return(
         <BackgroundTexture texture='corkboard' keepHeight={true}>
-            <View>
+            <View style ={styles.container}>
                 <View style={styles.searchBar}>
                     <LinearGradient style={styles.searchGradient} colors={[Colors.warmA300, Colors.coolA300]} />
-                        <TextInput style={styles.searchInput} onChangeText={searchInputHandler} />
+                    
+                    <TextInput placeholder="Search..." style={styles.searchInput} onChangeText={searchInputHandler} onEndEditing={searchHandler} />
+
+                    <View style={styles.searchBtn}>
                         <IconButton icon='search' size={24} onPress={searchHandler}/>
+                    </View>
                 </View>
                 {!!artists && <ListArtists artists={artists} />}
             </View>
@@ -42,17 +46,18 @@ export default SearchArtists;
 
 const styles = StyleSheet.create({
     container:{
-        alignItems:'center'
+        alignItems:'center',
+        flex: 1,
     },
     searchBar:{
-        borderRadius: 12,
+        borderRadius: 8,
         flexDirection: 'row',
         justifyContent:'space-between',
         alignItems: 'center',
-        marginHorizontal: '32',
+        marginHorizontal: 32,
         marginVertical: 16,
         overflow: 'hidden',
-        paddingHorizontal: 8,
+        paddingLeft: 8,
     },
     searchInput:{
         flex:1,
@@ -65,4 +70,8 @@ const styles = StyleSheet.create({
         top: 0,
         height: 40,
     },
+    searchBtn: {
+        backgroundColor: Colors.coolB500,
+        height: 40,
+    }
 });

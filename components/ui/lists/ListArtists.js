@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import ArtistCard from "../cards/ArtistCard";
 
 function ListArtists({artists}){
@@ -9,6 +9,7 @@ function ListArtists({artists}){
 
     return(
         <FlatList 
+        style={styles.list}
         data={artists} 
         numColumns={2} 
         renderItem={itemRenderer} 
@@ -17,3 +18,9 @@ function ListArtists({artists}){
 }
 
 export default ListArtists;
+
+const styles = StyleSheet.create({
+    list: {
+        flex:1,
+    }
+});

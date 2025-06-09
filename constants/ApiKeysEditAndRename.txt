@@ -3,4 +3,5 @@
 export const TICKETMASTER_API_KEY="API_KEY"
 export const GOOGLE_MAPS_API_KEY="API_KEY"
 export const DISCOGS_API_KEY="API_KEY"
+export const DISCOGS_API_SECRET="API_SECRET"
 export const FIREBASE_API_KEY="API_KEY"
