@@ -17,7 +17,7 @@ export async function fetchArtists(searchTerm){
         const placeholder = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1qrhEhfPI_tojUD7VMYuuLS2gVcxEy4dpSvGbxQAy5C0ZRGi_Pr3TYxyUkVyjsJJIHA&usqp=CAU'
         response.data.results.forEach(item => {
             //discog's placeholder image is a blank white image named spacer.gif, if it shows up switch it for my placeholder
-            const cover_image = item.cover_image.includes('spacer.gif')?placeholder:item.cover_image;
+            const cover_image = item.cover_image.includes('spacer.gif')?placeholder:item?.cover_image;
             artists.push(new Artist(item.title, cover_image, item.id));
         });
         return artists;
@@ -34,7 +34,7 @@ export async function fetchArtistInfo(artistID){
         const url = `${apiUrl}/artists/${artistID}?${apiKeySecret}`;
     try{
         const response = await axios.get(url, {headers: headers});
-        const artist = new Artist(response.data.name, response.data.images[0].uri, artistID, response.data.profile);
+        const artist = new Artist(response.data?.name, response.data.images[0]?.uri, artistID, response.data?.profile);
         return artist;
             
     } catch(err){

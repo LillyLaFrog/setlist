@@ -5,21 +5,26 @@ import IconButton from "../../../../components/ui/IconButton";
 import { createContext, useState } from "react";
 import { Artist } from "../../../../models/Artist";
 import Events from "./Events";
+import EventNavigator from "./EventNavigator";
 
+export const ArtistContext = createContext({ID:''});
 
-export const ArtistIDContext = createContext({ID:''});
 
 function ArtistNavigatior({navigation, route}){
     
+
     const Tabs = createBottomTabNavigator();
     
-    const [artist, setArtist] = useState(new Artist);
 
     return(
-        <ArtistIDContext.Provider value={{ID:route.params.artistID}}>
+        <ArtistContext.Provider value={{ID:route.params.artistID}}>
             <Tabs.Navigator 
             screenOptions={{
-                headerShown: false,
+                headerShown: true,
+                headerTitle: 'AJR',
+                headerTitleAlign: 'center',
+                headerLeft: ({tintColor}) => <IconButton icon='home' size={24} onPress={()=>navigation.goBack()} />, //go back button
+                headerRight: ({tintColor}) => <IconButton icon='star-outline' size={24} onPress={()=>navigation.goBack()} />, //favorite button
             }}>
                 <Tabs.Screen name="ArtistInfo" component={ArtistInfo}
                 options={{
@@ -27,13 +32,13 @@ function ArtistNavigatior({navigation, route}){
                     title: "Info",
                 }}/>
                 {/* <Tabs.Screen name="ArtistAlbums" /> */}
-                <Tabs.Screen name="Events" component={Events} 
+                <Tabs.Screen name="Events" component={EventNavigator} 
                 options={{
                     tabBarIcon: ({size, color})=><MaterialCommunityIcons name='microphone-variant' color={color} size={size} />,
-                    title: "Events",
-                }}/>
+                }}
+                tabBar={()=><></>}/>
             </Tabs.Navigator>
-        </ArtistIDContext.Provider>
+        </ArtistContext.Provider>
 
     );
 };

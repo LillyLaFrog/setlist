@@ -7,7 +7,7 @@ import ListArtists from "../../../components/ui/lists/ListArtists";
 
 function FollowedArtists() {
     const imageURI = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeu-4mZFfjrNIr9K05_D3AgfZeem9HFMf3u_QLYnxTSqrbO30lb57h02AJsDtt9NHrDrA3-Z8gvtltAvvejodxdA'
-    const artist = new Artist('Dallon Weekes', imageURI, 1)
+    const artist = new Artist('AJR', imageURI, 2308877)
     return(
         <BackgroundTexture texture='corkboard'>
             <View style={styles.container}>
@@ -21,6 +21,7 @@ export default FollowedArtists;
 
 const styles = StyleSheet.create({
     container:{
-        alignItems:'center'
+        alignItems:'center',
+        flex: 1,
     }
 });

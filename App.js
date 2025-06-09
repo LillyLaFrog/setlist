@@ -56,7 +56,7 @@ function Content(){
         name='ArtistDetails'
         component={ArtistNavigatior}
         options={{
-          title:'Artist Details'
+          headerShown: false,
         }}
       />
       <Stack.Screen 
