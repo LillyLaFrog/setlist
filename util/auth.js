@@ -22,3 +22,4 @@ export function createUser(email, password) {
 export function login(email, password) {
     return auth('signInWithPassword', email, password) ;
 };
+

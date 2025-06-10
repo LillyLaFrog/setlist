@@ -6,6 +6,7 @@ import { createContext, useState } from "react";
 import { Artist } from "../../../../models/Artist";
 import Events from "./Events";
 import EventNavigator from "./EventNavigator";
+import { fetchArtistInfo } from "../../../../util/discogs";
 
 export const ArtistContext = createContext({ID:''});
 
@@ -14,17 +15,17 @@ function ArtistNavigatior({navigation, route}){
     
 
     const Tabs = createBottomTabNavigator();
-    
+
 
     return(
         <ArtistContext.Provider value={{ID:route.params.artistID}}>
             <Tabs.Navigator 
             screenOptions={{
                 headerShown: true,
-                headerTitle: 'AJR',
+                headerTitle: '',
                 headerTitleAlign: 'center',
-                headerLeft: ({tintColor}) => <IconButton icon='home' size={24} onPress={()=>navigation.goBack()} />, //go back button
-                headerRight: ({tintColor}) => <IconButton icon='star-outline' size={24} onPress={()=>navigation.goBack()} />, //favorite button
+                headerLeft: ({tintColor}) => <IconButton icon='home' size={24} color={tintColor} onPress={()=>navigation.goBack()} />, //go back button
+                headerRight: ({tintColor}) => <IconButton icon='star-outline' size={24} color={tintColor} onPress={()=>navigation.goBack()} />, //favorite button
             }}>
                 <Tabs.Screen name="ArtistInfo" component={ArtistInfo}
                 options={{

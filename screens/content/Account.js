@@ -4,9 +4,11 @@ import Button from "../../components/ui/Button";
 import { Colors } from "../../constants/Colors";
 import { useContext } from "react";
 import { authContext } from "../../store/auth-context";
+import { userContext } from "../../store/user-context";
 
 function Account(){
     const authCtx = useContext(authContext);
+    const userCtx = useContext(userContext);
 
     function logoutHandler() {
         authCtx.logout();
@@ -16,7 +18,7 @@ function Account(){
         <BackgroundTexture texture='metal'>
             <View style={styles.container}>
                 <Image 
-                source={require('../../images/defaultPFP.png')}
+                source={!!userCtx.profilePic? {uri:userCtx.profilePic}:require('../../images/defaultPFP.png')}
                 style={styles.profilePic} 
                 />
                 <Button onPress={()=>{}} color={Colors.coolB600}>Change Profile Picture</Button>

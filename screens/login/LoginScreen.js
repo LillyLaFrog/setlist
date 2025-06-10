@@ -4,6 +4,7 @@ import { login } from "../../util/auth";
 import { useContext, useState } from "react";
 import { authContext } from "../../store/auth-context";
 import Loading from "../../components/ui/Loading";
+import { addUserData } from "../../util/database";
 
 
 function LoginScreen(){

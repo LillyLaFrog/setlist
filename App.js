@@ -18,9 +18,12 @@ import IconButton from './components/ui/IconButton';
 import Account from './screens/content/Account';
 import ImageButton from './components/ui/imgButton';
 import ArtistNavigatior from './screens/content/artist/artistDetails/ArtistNavigatior';
+import UserContextProvider, { userContext } from './store/user-context';
 
 function Content(){
   const Stack = createNativeStackNavigator();
+
+
   return(
     <Stack.Navigator screenOptions={{
       headerTitleAlign: 'center',
@@ -33,11 +36,6 @@ function Content(){
         component={FollowedArtists}
         options={({navigation})=> ({
           title: 'Followed Artists',
-          headerLeft: ({tintColor})=>{
-            return(
-              <ImageButton source={require('./images/defaultPFP.png')} onPress={()=>navigation.navigate('Account')} color={tintColor} size={32} /> //todo make this the pfp
-            );
-          },
           headerRight: ({tintColor})=>{
             return(
               <IconButton icon='search' onPress={()=>navigation.navigate('SearchArtists')} color={tintColor} size={24} />
@@ -123,7 +121,11 @@ function Root(){
     return null;
   }
   return(
-    (authCtx.isLoggedIn?<Content/>:<Auth />)
+    (authCtx.isLoggedIn?
+    <UserContextProvider>
+      <Content/>
+    </UserContextProvider>
+    :<Auth />)
   );
 }
 

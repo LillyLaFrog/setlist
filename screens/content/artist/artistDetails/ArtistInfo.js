@@ -5,20 +5,23 @@ import { fetchArtistInfo } from "../../../../util/discogs";
 import ArtistCard from "../../../../components/ui/cards/ArtistCard";
 import { Artist } from "../../../../models/Artist";
 
-function ArtistInfo(){
-    const artistIDCtx = useContext(ArtistContext);
+function ArtistInfo({navigation}){
+    const artistCtx = useContext(ArtistContext);
 
     const [artist, setArtist] = useState(new Artist);
     
     
-    
     useEffect(()=>{
         async function setArtistInfo(){
-            setArtist(await fetchArtistInfo(artistIDCtx.ID));
+            setArtist(await fetchArtistInfo(artistCtx.ID));
             
         }
         setArtistInfo();
     },[])
+
+    useEffect(()=>{
+        navigation.setOptions({headerTitle: artist?.artistName});
+    },[artist])
     
     return(
         <ScrollView contentContainerStyle={styles.container}>

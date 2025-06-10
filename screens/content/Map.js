@@ -3,8 +3,11 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 
 import IconButton from '../../components/ui/IconButton';
+import Button from '../../components/ui/Button';
+import { Colors } from '../../constants/Colors';
 
 function Map({navigation, route}) {
+
 
     const location = !!route.params && {
         lat: route.params.lat,
@@ -48,9 +51,12 @@ function Map({navigation, route}) {
     },[navigation, savePickedLocationHandler, location])
 
     return(
+        <View style={styles.container}>
         <MapView style={styles.map} initialRegion={region} onPress={setLocationHandler}>
             {!!markerLocation && <Marker title='Picked Location' coordinate={{latitude: markerLocation.lat, longitude: markerLocation.lng}} />}
         </MapView>
+        <Button onPress={navigation.goBack} color={Colors.coolB700}>Back</Button>
+        </View>
     );
 }
 
@@ -59,5 +65,8 @@ export default Map;
 const styles = StyleSheet.create({
     map:{
         flex: 1,
-    }
+    },
+    container:{
+        flex:1,
+    },
 });
