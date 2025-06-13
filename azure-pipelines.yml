@@ -27,8 +27,8 @@ steps:
 
 - task: Gradle@4
   inputs:
-    gradleWrapperFile: 'gradlew'
-    workingDirectory: 'android'
+    gradleWrapperFile: './android/gradlew'
+    workingDirectory: './android'
     tasks: 'assembleRelease'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
