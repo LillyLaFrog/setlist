@@ -25,6 +25,18 @@ steps:
     npx expo prebuild
   displayName: prebuild (create android folder)
 
-- script:
-    cd android && ./gradlew assembleRelease
+- task: Gradle@4
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    workingDirectory: 'android'
+    tasks: 'assembleRelease'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: false
+    spotBugsAnalysis: false
   displayName: build android
+
+
+
+
