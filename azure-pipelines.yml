@@ -22,6 +22,5 @@ steps:
   displayName: 'run npm install'
 
 - script: 
-    EXPO_TOKEN=$(expo_token)
-    npm install -g eas-cli
-    npx eas build --platform android --local
+    npx expo prebuild
+    cd android && ./gradlew assembleRelease
