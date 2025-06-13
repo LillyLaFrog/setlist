@@ -22,21 +22,7 @@ steps:
   displayName: 'run npm install'
 
 - script: 
-    npx expo prebuild
-  displayName: prebuild (create android folder)
-
-- task: Gradle@4
-  inputs:
-    gradleWrapperFile: './android/gradlew'
-    workingDirectory: './android'
-    tasks: 'assembleRelease'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    sonarQubeRunAnalysis: false
-    spotBugsAnalysis: false
-  displayName: build android
-
-
-
-
+    npm install -g eas-cli
+  displayName: install Expo App Services
+- script:
+    export EXPO_TOKEN=$(expo_token) && npx eas build --platform android --local
