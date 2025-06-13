@@ -23,4 +23,8 @@ steps:
 
 - script: 
     npx expo prebuild
+  displayName: prebuild (create android folder)
+
+- script:
     cd android && ./gradlew assembleRelease
+  displayName: build android
