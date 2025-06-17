@@ -27,7 +27,7 @@ steps:
     echo "Creating working directory and injecting API keys..."
     mkdir "$(workingDir)"
     ls .
-    rsync -r --exclude='$(workingDir)' ./* "$(workingDir)"
+    rsync -var --exclude='$(workingDir)' ./* "$(workingDir)"
     cd $(workingDir)
     ls .
 
