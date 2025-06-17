@@ -24,7 +24,7 @@ steps:
     echo "Creating working directory and injecting API keys..."&&
     mkdir "$(workingDir)"&&
     ls .&&
-    rsync -var --exclude='working' --exclude='node_modules' ./ ./working &&
+    rsync -var --exclude='working' ./ ./working &&
     cd $(workingDir)&&
     ls .&&
 
