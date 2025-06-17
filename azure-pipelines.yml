@@ -48,7 +48,11 @@ steps:
 
     cd "$(workingDir)"
 
-    npx eas-cli build --platform android --non-interactive --no-wait --local
+    ls .
+
+    ls ./constants
+
+    #npx eas-cli build --platform android --non-interactive --no-wait --local
   displayName: Build with EAS
 
 - task: PublishBuildArtifacts@1
