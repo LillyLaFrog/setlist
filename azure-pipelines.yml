@@ -38,8 +38,11 @@ steps:
 
 - task: Npm@1
   displayName: 'Run npm install'
+  inputs:
+    workingDir: $(workingDir)
 
 - script:
+    cd $(workingDir)
     npm install -g eas-cli
   displayName: Install EAS CLI
 
