@@ -41,6 +41,7 @@ steps:
   displayName: install Expo App Services
 
 - script:
+    touch $(artifactDir)/expolink &&
     export EXPO_TOKEN='$(expo_token)' && npx eas-cli build --platform android --non-interactive --no-wait > $(artifactDir)/expolink
   displayName: build with eas
 
