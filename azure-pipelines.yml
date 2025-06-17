@@ -24,7 +24,7 @@ steps:
     echo "Creating working directory and injecting API keys..."&&
     mkdir "$(workingDir)"&&
     ls .&&
-    rsync -var --exclude='working' --exclude='node_modules' --exclude='azure-pipelines.yml' --exclude='eas.json' ./ ./working &&
+    rsync -var --exclude='working' ./ ./working &&
     cd $(workingDir)&&
     ls .&&
 
@@ -38,21 +38,20 @@ steps:
 
 - task: Npm@1
   displayName: 'Run npm install'
+  inputs:
+    workingDir: $(workingDir)
 
 - script:
+    cd $(workingDir) &&
     npm install -g eas-cli
   displayName: Install EAS CLI
 
 - script: 
-    echo "Running EAS build in clean working directory..."
+    echo "Running EAS build in clean working directory..."&&
 
-    export EXPO_TOKEN='$(expo_token)'
-    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
-    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
-    cd "$(workingDir)"
-
-    ls .
-
+    export EXPO_TOKEN='$(expo_token)'&&
+    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'&&
+    cd "$(workingDir)"&&
     npx eas-cli build --platform android --non-interactive --no-wait --local
   displayName: Build with EAS
 
