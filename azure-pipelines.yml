@@ -41,7 +41,7 @@ steps:
     mkdir $(artifactDir) &&
     touch $(artifactDir)/expolink.txt &&
     export EXPO_TOKEN='$(expo_token)' &&
-    export EAS_LOCAL_BUILD_WORKINGDIR='$(artifactDir)'
+    export EAS_LOCAL_BUILD_WORKINGDIR='$(artifactDir)' &&
     npx eas-cli build --platform android --non-interactive --no-wait --local
   displayName: build with eas
 
