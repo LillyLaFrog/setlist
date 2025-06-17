@@ -20,14 +20,11 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
-- task: Npm@1
-  displayName: 'Run npm install'
-
 - script: |
     echo "Creating working directory and injecting API keys..."&&
     mkdir "$(workingDir)"&&
     ls .&&
-    rsync -var --exclude='working' ./ ./working &&
+    rsync -var --exclude='working' --exclude='node_modules' --exclude='azure-pipelines.yml' --exclude='eas.json' ./ ./working &&
     cd $(workingDir)&&
     ls .&&
 
@@ -39,6 +36,9 @@ steps:
   
   displayName: Prepare working directory
 
+- task: Npm@1
+  displayName: 'Run npm install'
+
 - script:
     npm install -g eas-cli
   displayName: Install EAS CLI
@@ -48,7 +48,7 @@ steps:
 
     export EXPO_TOKEN='$(expo_token)'
     export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
-
+    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
     cd "$(workingDir)"
 
     ls .
