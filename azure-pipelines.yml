@@ -47,7 +47,6 @@ steps:
     echo "Running EAS build in clean working directory..."
 
     export EXPO_TOKEN='$(expo_token)'
-    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
     export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
 
     cd "$(workingDir)"
