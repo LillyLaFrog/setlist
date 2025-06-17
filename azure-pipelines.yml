@@ -6,12 +6,6 @@ pool:
 
 variables:
   workingDir: "$(System.DefaultWorkingDirectory)/working/"
-  expo_token: 
-  ticketmaster_api_key: 
-  google_maps_api_key: 
-  discogs_api_key: 
-  discogs_api_secret: 
-  firebase_api_key: 
 
 steps:
 - task: NodeTool@0
@@ -48,7 +42,6 @@ steps:
 - script: 
     echo "Running EAS build in clean working directory..."&&
 
-    export EXPO_TOKEN='$(expo_token)'&&
     export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(Build.ArtifactStagingDirectory)'&&
     cd "$(workingDir)"&&
     npx eas-cli build --platform android --non-interactive --local
