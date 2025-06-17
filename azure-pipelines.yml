@@ -53,8 +53,6 @@ steps:
     export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
     cd "$(workingDir)"
 
-    ls .
-
     npx eas-cli build --platform android --non-interactive --no-wait --local
   displayName: Build with EAS
 
