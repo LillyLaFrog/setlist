@@ -1,4 +1,3 @@
-
 trigger:
 - main
 
@@ -22,34 +21,38 @@ steps:
   displayName: 'Install Node.js'
 
 - task: Npm@1
-  displayName: 'run npm install'
+  displayName: 'Run npm install'
 
-- script:
-    ls &&
-    touch ./constants/ApiKeys.js &&
-    echo $'export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)"\n
-           export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)"\n
-           export const DISCOGS_API_KEY="$(discogs_api_key)"\n
-           export const DISCOGS_API_SECRET="$(discogs_api_secret)"\n
-           export const FIREBASE_API_KEY="$(firebase_api_key)"' > ./constants/ApiKeys.js &&
-    cp -r . '$(workingDir)'
-  displayName: Create ApiKeys.js file
+- script: |
+    echo "Creating working directory and injecting API keys..."
+    mkdir -p "$(workingDir)"
+    
+    echo $'export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)";
+    export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)";
+    export const DISCOGS_API_KEY="$(discogs_api_key)";
+    export const DISCOGS_API_SECRET="$(discogs_api_secret)";
+    export const FIREBASE_API_KEY="$(firebase_api_key)";' > ./constants/ApiKeys.js
 
-- script: 
+    cp -r . "$(workingDir)"
+  displayName: Prepare working directory
+
+- script: |
     npm install -g eas-cli
-  displayName: install Expo App Services
+  displayName: Install EAS CLI
 
-- script:
-    mkdir $(artifactDir) &&
-    touch $(artifactDir)/expolink.txt &&
-    export EXPO_TOKEN='$(expo_token)' &&
-    mkdir $(workingDir) &&
-    export EAS_LOCAL_BUILD_WORKINGDIR='$(artifactDir)' &&
-    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)' &&
+- script: |
+    echo "Running EAS build in clean working directory..."
+
+    export EXPO_TOKEN='$(expo_token)'
+    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
+
+    cd "$(workingDir)"
+
     npx eas-cli build --platform android --non-interactive --no-wait --local
-  displayName: build with eas
+  displayName: Build with EAS
 
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: $(artifactDir)/*
+    TargetPath: $(workingDir) # assuming EAS outputs here
     ArtifactName: build files
+  displayName: Publish Build Artifacts
