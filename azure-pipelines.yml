@@ -1,8 +1,3 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
@@ -10,6 +5,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  artifactDir: "$(System.DefaultWorkingDirectory)/bin"
+  workingDir: "$(System.DefaultWorkingDirectory)/working/"
   expo_token: FOkQebgWRTBGUaVl1H-LwzeRshjTfmHZIpdCzqgj
   ticketmaster_api_key: egpI9dkBAoSk2psLmyOqc8Oyzr57kqMG
   google_maps_api_key: AIzaSyAdi1SjtinJH1pqks6TGw_GAAIfMLrJOVE
@@ -23,23 +20,44 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
+- script: |
+    echo "Creating working directory and injecting API keys..."&&
+    mkdir "$(workingDir)"&&
+    ls .&&
+    rsync -var --exclude='working' --exclude='node_modules' --exclude='azure-pipelines.yml' --exclude='eas.json' ./ ./working &&
+    cd $(workingDir)&&
+    ls .&&
+
+    echo $'export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)";
+    export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)";
+    export const DISCOGS_API_KEY="$(discogs_api_key)";
+    export const DISCOGS_API_SECRET="$(discogs_api_secret)";
+    export const FIREBASE_API_KEY="$(firebase_api_key)";' > ./constants/ApiKeys.js
+  
+  displayName: Prepare working directory
+
 - task: Npm@1
-  displayName: 'run npm install'
+  displayName: 'Run npm install'
 
 - script:
-    touch ./constants/ApiKeys.js &&
-    echo $'
-    export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)"\n
-    export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)"\n
-    export const DISCOGS_API_KEY="$(discogs_api_key)"\n
-    export const DISCOGS_API_SECRET="$(discogs_api_secret)"\n
-    export const FIREBASE_API_KEY="$(firebase_api_key)"' > ./constants/ApiKeys.js
-  displayName: Create ApiKeys.js file
+    npm install -g eas-cli
+  displayName: Install EAS CLI
 
 - script: 
-    npm install -g eas-cli
-  displayName: install Expo App Services
+    echo "Running EAS build in clean working directory..."
 
-- script:
-    export EXPO_TOKEN='$(expo_token)' && npx eas-cli build --platform all --non-interactive --no-wait
-  displayName: build with eas
+    export EXPO_TOKEN='$(expo_token)'
+    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
+    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
+    cd "$(workingDir)"
+
+    ls .
+
+    npx eas-cli build --platform android --non-interactive --no-wait --local
+  displayName: Build with EAS
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    TargetPath: $(artifactDir)
+    ArtifactName: build files
+  displayName: Publish Build Artifacts
