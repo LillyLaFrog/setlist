@@ -24,12 +24,12 @@ steps:
 #  displayName: 'Run npm install'
 
 - script: |
-    echo "Creating working directory and injecting API keys..."
-    mkdir "$(workingDir)"
-    ls .
-    rsync -var --exclude='$(workingDir)' ./ "$(workingDir)"
-    cd $(workingDir)
-    ls .
+    echo "Creating working directory and injecting API keys..."&&
+    mkdir "$(workingDir)"&&
+    ls .&&
+    rsync -var --exclude='$(workingDir)' ./ "$(workingDir)"&&
+    cd $(workingDir)&&
+    ls .&&
 
     echo $'export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)";
     export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)";
