@@ -33,18 +33,18 @@ steps:
     export const DISCOGS_API_SECRET="$(discogs_api_secret)";
     export const FIREBASE_API_KEY="$(firebase_api_key)";' > ./constants/ApiKeys.js
 
-    cp -r . "$(workingDir)"
   displayName: Prepare working directory
 
-- script: |
+- script:
     npm install -g eas-cli
   displayName: Install EAS CLI
 
-- script: |
+- script: 
     echo "Running EAS build in clean working directory..."
 
     export EXPO_TOKEN='$(expo_token)'
     export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
+    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
 
     cd "$(workingDir)"
 
@@ -53,6 +53,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: $(workingDir) # assuming EAS outputs here
+    TargetPath: $(artifactDir)
     ArtifactName: build files
   displayName: Publish Build Artifacts
