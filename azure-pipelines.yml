@@ -32,7 +32,7 @@ steps:
     export const DISCOGS_API_KEY="$(discogs_api_key)";
     export const DISCOGS_API_SECRET="$(discogs_api_secret)";
     export const FIREBASE_API_KEY="$(firebase_api_key)";' > ./constants/ApiKeys.js
-    cp . "$(workingDir)"
+    cp -r . "$(workingDir)"
 
   displayName: Prepare working directory
 
