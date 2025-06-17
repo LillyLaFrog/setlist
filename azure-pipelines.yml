@@ -1,0 +1,54 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  workingDir: "$(System.DefaultWorkingDirectory)/working/"
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    echo "Creating working directory and injecting API keys..."&&
+    mkdir "$(workingDir)"&&
+    ls .&&
+    rsync -var --exclude='working' ./ ./working &&
+    cd $(workingDir)&&
+    ls .&&
+
+    echo "export const TICKETMASTER_API_KEY=$TICKETMASTER_API_KEY;
+    export const GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY;
+    export const DISCOGS_API_KEY=$DISCOGS_API_KEY;
+    export const DISCOGS_API_SECRET=$DISCOGS_API_SECRET;
+    export const FIREBASE_API_KEY=$FIREBASE_API_KEY;" > ./constants/ApiKeys.js
+  
+  displayName: Prepare working directory
+
+- task: Npm@1
+  displayName: 'Run npm install'
+  inputs:
+    workingDir: $(workingDir)
+
+- script:
+    cd $(workingDir) &&
+    npm install -g eas-cli
+  displayName: Install EAS CLI
+
+- script: 
+    echo "Running EAS build in clean working directory..."&&
+
+    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(Build.ArtifactStagingDirectory)'&&
+    cd "$(workingDir)"&&
+    npx eas-cli build --platform android --non-interactive --local
+  displayName: Build with EAS
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: build files
+  displayName: Publish Build Artifacts
