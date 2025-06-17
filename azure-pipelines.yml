@@ -20,24 +20,25 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
-- task: Npm@1
-  displayName: 'Run npm install'
+#- task: Npm@1
+#  displayName: 'Run npm install'
 
 - script: |
     echo "Creating working directory and injecting API keys..."
-    mkdir -p "$(workingDir)"
+    mkdir "$(workingDir)"
     
     echo $'export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)";
     export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)";
     export const DISCOGS_API_KEY="$(discogs_api_key)";
     export const DISCOGS_API_SECRET="$(discogs_api_secret)";
     export const FIREBASE_API_KEY="$(firebase_api_key)";' > ./constants/ApiKeys.js
+    cp . "$(workingDir)"
 
   displayName: Prepare working directory
 
-- script:
-    npm install -g eas-cli
-  displayName: Install EAS CLI
+#- script:
+#    npm install -g eas-cli
+#  displayName: Install EAS CLI
 
 - script: 
     echo "Running EAS build in clean working directory..."
