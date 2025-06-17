@@ -24,7 +24,7 @@ steps:
     echo "Creating working directory and injecting API keys..."&&
     mkdir "$(workingDir)"&&
     ls .&&
-    rsync -var --exclude='working' --exclude='node_modules' --exclude='azure-pipelines.yml' --exclude='eas.json' ./ ./working &&
+    rsync -var --exclude='working' --exclude='node_modules' ./ ./working &&
     cd $(workingDir)&&
     ls .&&
 
