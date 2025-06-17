@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  artifactDir: "$(System.DefaultWorkingDirectory)/bin/setlist"
+  artifactDir: "$(System.DefaultWorkingDirectory)/bin"
   expo_token: FOkQebgWRTBGUaVl1H-LwzeRshjTfmHZIpdCzqgj
   ticketmaster_api_key: egpI9dkBAoSk2psLmyOqc8Oyzr57kqMG
   google_maps_api_key: AIzaSyAdi1SjtinJH1pqks6TGw_GAAIfMLrJOVE
