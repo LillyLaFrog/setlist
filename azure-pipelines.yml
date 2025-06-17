@@ -48,5 +48,5 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: $(artifactDir)
+    TargetPath: $(artifactDir)/expolink.txt
     ArtifactName: expolink
