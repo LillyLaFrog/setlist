@@ -25,4 +25,5 @@ steps:
     npm install -g eas-cli
   displayName: install Expo App Services
 - script:
-    export EXPO_TOKEN=$(expo_token) && npx eas build --platform android --local
+    export EXPO_TOKEN=$(expo_token) && npx eas-cli build --platform all --non-interactive --no-wait
+  displayName: build with eas
