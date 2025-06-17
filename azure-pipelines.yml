@@ -42,7 +42,7 @@ steps:
     workingDir: $(workingDir)
 
 - script:
-    cd $(workingDir)
+    cd $(workingDir) &&
     npm install -g eas-cli
   displayName: Install EAS CLI
 
