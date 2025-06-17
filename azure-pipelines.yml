@@ -39,9 +39,9 @@ steps:
   
   displayName: Prepare working directory
 
-#- script:
-#    npm install -g eas-cli
-#  displayName: Install EAS CLI
+- script:
+    npm install -g eas-cli
+  displayName: Install EAS CLI
 
 - script: 
     echo "Running EAS build in clean working directory..."
@@ -54,7 +54,7 @@ steps:
 
     ls .
 
-    #npx eas-cli build --platform android --non-interactive --no-wait --local
+    npx eas-cli build --platform android --non-interactive --no-wait --local
   displayName: Build with EAS
 
 - task: PublishBuildArtifacts@1
