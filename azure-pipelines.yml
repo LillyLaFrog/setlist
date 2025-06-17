@@ -48,7 +48,6 @@ steps:
 
     export EXPO_TOKEN='$(expo_token)'
     export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
-    export EAS_LOCAL_BUILD_WORKINGDIR='$(workingDir)'
     cd "$(workingDir)"
 
     ls .
