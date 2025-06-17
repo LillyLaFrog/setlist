@@ -47,10 +47,10 @@ steps:
   displayName: Install EAS CLI
 
 - script: 
-    echo "Running EAS build in clean working directory..."
+    echo "Running EAS build in clean working directory..."&&
 
-    export EXPO_TOKEN='$(expo_token)'
-    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'
+    export EXPO_TOKEN='$(expo_token)'&&
+    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'&&
     cd "$(workingDir)"&&
     npx eas-cli build --platform android --non-interactive --no-wait --local
   displayName: Build with EAS
