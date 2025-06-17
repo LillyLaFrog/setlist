@@ -5,14 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  artifactDir: "$(System.DefaultWorkingDirectory)/bin"
   workingDir: "$(System.DefaultWorkingDirectory)/working/"
-  expo_token: FOkQebgWRTBGUaVl1H-LwzeRshjTfmHZIpdCzqgj
-  ticketmaster_api_key: egpI9dkBAoSk2psLmyOqc8Oyzr57kqMG
-  google_maps_api_key: AIzaSyAdi1SjtinJH1pqks6TGw_GAAIfMLrJOVE
-  discogs_api_key: bnDkevSKZKNwedhShIKh
-  discogs_api_secret: TvDAxpyxpouDOkZFvseKGdnFEXZqTHtl
-  firebase_api_key: AIzaSyC1LMoAbgA9hD2ZKxaGeynfpQQAEsZshDs
+  expo_token: 
+  ticketmaster_api_key: 
+  google_maps_api_key: 
+  discogs_api_key: 
+  discogs_api_secret: 
+  firebase_api_key: 
 
 steps:
 - task: NodeTool@0
@@ -28,11 +27,11 @@ steps:
     cd $(workingDir)&&
     ls .&&
 
-    echo $'export const TICKETMASTER_API_KEY="$(ticketmaster_api_key)";
-    export const GOOGLE_MAPS_API_KEY="$(google_maps_api_key)";
-    export const DISCOGS_API_KEY="$(discogs_api_key)";
-    export const DISCOGS_API_SECRET="$(discogs_api_secret)";
-    export const FIREBASE_API_KEY="$(firebase_api_key)";' > ./constants/ApiKeys.js
+    echo $'export const TICKETMASTER_API_KEY=%TICKETMASTER_API_KEY%;
+    export const GOOGLE_MAPS_API_KEY=%GOOGLE_MAPS_API_KEY%;
+    export const DISCOGS_API_KEY=%DISCOGS_API_KEY%;
+    export const DISCOGS_API_SECRET=%DISCOGS_API_SECRET%;
+    export const FIREBASE_API_KEY=%FIREBASE_API_KEY%;' > ./constants/ApiKeys.js
   
   displayName: Prepare working directory
 
@@ -50,13 +49,13 @@ steps:
     echo "Running EAS build in clean working directory..."&&
 
     export EXPO_TOKEN='$(expo_token)'&&
-    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(artifactDir)'&&
+    export EAS_LOCAL_BUILD_ARTIFACTS_DIR='$(Build.ArtifactStagingDirectory)'&&
     cd "$(workingDir)"&&
-    npx eas-cli build --platform android --non-interactive --no-wait --local
+    npx eas-cli build --platform android --non-interactive --local
   displayName: Build with EAS
 
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: $(artifactDir)
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: build files
   displayName: Publish Build Artifacts
