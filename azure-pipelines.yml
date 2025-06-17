@@ -21,11 +21,11 @@ steps:
     cd $(workingDir)&&
     ls .&&
 
-    echo $'export const TICKETMASTER_API_KEY=%TICKETMASTER_API_KEY%;
-    export const GOOGLE_MAPS_API_KEY=%GOOGLE_MAPS_API_KEY%;
-    export const DISCOGS_API_KEY=%DISCOGS_API_KEY%;
-    export const DISCOGS_API_SECRET=%DISCOGS_API_SECRET%;
-    export const FIREBASE_API_KEY=%FIREBASE_API_KEY%;' > ./constants/ApiKeys.js
+    echo "export const TICKETMASTER_API_KEY=$TICKETMASTER_API_KEY;
+    export const GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY;
+    export const DISCOGS_API_KEY=$DISCOGS_API_KEY;
+    export const DISCOGS_API_SECRET=$DISCOGS_API_SECRET;
+    export const FIREBASE_API_KEY=$FIREBASE_API_KEY;" > ./constants/ApiKeys.js
   
   displayName: Prepare working directory
 
